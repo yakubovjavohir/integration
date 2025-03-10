@@ -18,4 +18,9 @@ export class UpdateProductDto {
     @IsInt()
     @IsOptional()
     count:number
+
+    @ApiProperty()
+    @IsInt()
+    @IsOptional()
+    categoryId:number
 }

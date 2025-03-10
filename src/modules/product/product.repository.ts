@@ -4,6 +4,8 @@ import { IProductRepository } from "./interface/user.repository";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { ID } from "src/common/types";
 import { UpdateProductDto } from "./dto/update-product.dto";
+import { CategoryEntity } from "../category/entities/category.entity";
+import { UserEntity } from "../user/entities/user.entity";
 
 
 export class ProductRepository implements IProductRepository {
@@ -13,7 +15,12 @@ export class ProductRepository implements IProductRepository {
         return data
     }
     async findAll(): Promise<Array<ProductEntity>> {
-        const data = await this.productModel.findAll()
+        const data = await this.productModel.findAll({
+            include:[
+                {model:CategoryEntity},
+                {model:UserEntity}
+            ]
+        })
         return data
     } 
     async update(id: ID, entity: UpdateProductDto): Promise<ProductEntity | null> {
